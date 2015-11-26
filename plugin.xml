@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Sample Category"
+            id="MemberSort.commands.category">
+      </category>
+      <command
+            name="Sample Command"
+            categoryId="MemberSort.commands.category"
+            id="MemberSort.commands.sampleCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="MemberSort.commands.sampleCommand"
+            class="membersort.handlers.SortHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="MemberSort.toolbars.sampleToolbar">
+            <command
+                  commandId="MemberSort.commands.sampleCommand"
+                  icon="icons/sample.gif"
+                  tooltip="Sort members"
+                  id="MemberSort.toolbars.sampleCommand">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+
+</plugin>
