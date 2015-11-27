@@ -5,20 +5,20 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            name="Sample Category"
+            name="MemberSort"
             id="MemberSort.commands.category">
       </category>
       <command
-            name="Sample Command"
+            name="MemberSort Command"
             categoryId="MemberSort.commands.category"
-            id="MemberSort.commands.sampleCommand">
+            id="MemberSort.commands.sortCommand">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            commandId="MemberSort.commands.sampleCommand"
-            class="membersort.handlers.SortHandler">
+            commandId="MemberSort.commands.sortCommand"
+            class="com.ixenit.membersort.handlers.SortHandler">
       </handler>
    </extension>
    <extension
@@ -26,15 +26,29 @@
       <menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
-               id="MemberSort.toolbars.sampleToolbar">
+               id="MemberSort.toolbars.toolbar">
             <command
-                  commandId="MemberSort.commands.sampleCommand"
-                  icon="icons/sample.gif"
+                  commandId="MemberSort.commands.sortCommand"
+                  icon="icons/arrow.png"
                   tooltip="Sort members"
-                  id="MemberSort.toolbars.sampleCommand">
+                  id="MemberSort.toolbars.sortCommand">
             </command>
          </toolbar>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.ixenit.membersort.preferences.PreferencePage"
+            id="membersort.preferences.PreferencePage"
+            name="MemberSort">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.ixenit.membersort.preferences.PreferenceInitializer">
+      </initializer>
    </extension>
 
 </plugin>
