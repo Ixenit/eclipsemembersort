@@ -8,11 +8,13 @@ package com.ixenit.membersort.preferences;
  */
 public class PreferenceConstants {
 
-	public static final String SEPARATOR = ",";
-
 	public static final String[] MODIFIERS = { "static", "final", "abstract", "synchronized", "transient", "volatile" };
 
+	public static final String P_ORDER_BY_NAME = "orderByNamePreference";
+
 	public static final String P_ORDER = "orderPreference";
+
+	public static final String SEPARATOR = ",";
 
 	public static final String[] TYPES = { "constructor", "method", "variable", "class", "enum", "init", };
 

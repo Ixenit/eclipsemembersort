@@ -1,5 +1,6 @@
 package com.ixenit.membersort.preferences;
 
+import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
@@ -29,7 +30,9 @@ public class PreferencePage extends FieldEditorPreferencePage implements IWorkbe
 	public void createFieldEditors() {
 		Composite parent = getFieldEditorParent();
 
-		addField(new ListEditor(PreferenceConstants.P_ORDER, "Test", parent) {
+		addField(new BooleanFieldEditor(PreferenceConstants.P_ORDER_BY_NAME, "Sort by name", parent));
+
+		addField(new ListEditor(PreferenceConstants.P_ORDER, "Order of members", parent) {
 
 			@Override
 			protected String createList(String[] items) {

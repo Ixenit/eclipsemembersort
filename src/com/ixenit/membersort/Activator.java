@@ -16,6 +16,12 @@ public class Activator extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "MemberSort"; //$NON-NLS-1$
 
 	/**
+	 * The constructor
+	 */
+	public Activator() {
+	}
+
+	/**
 	 * Returns the shared instance
 	 *
 	 * @return the shared instance
@@ -34,12 +40,6 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
-	}
-
-	/**
-	 * The constructor
-	 */
-	public Activator() {
 	}
 
 	/*

@@ -26,8 +26,11 @@ class MemberComparator implements Comparator<BodyDeclaration> {
 	@Override
 	public int compare(BodyDeclaration o1, BodyDeclaration o2) {
 		IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
+
 		String savedOrder = preferenceStore.getString(PreferenceConstants.P_ORDER);
 		String[] order = savedOrder.split(",");
+
+		boolean orderByName = preferenceStore.getBoolean(PreferenceConstants.P_ORDER_BY_NAME);
 
 		Member member1 = _createMember(o1);
 		Member member2 = _createMember(o2);
@@ -37,7 +40,7 @@ class MemberComparator implements Comparator<BodyDeclaration> {
 
 		// If they have the same modifiers then compare them by name
 		if (modifierOrder1 == modifierOrder2) {
-			return member1.name.compareTo(member2.name);
+			return orderByName ? member1.name.compareTo(member2.name) : 0;
 		}
 
 		// Compare them by modifiers

@@ -32,6 +32,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		sb.deleteCharAt(0);
 
 		store.setDefault(PreferenceConstants.P_ORDER, sb.toString());
+		store.setDefault(PreferenceConstants.P_ORDER_BY_NAME, true);
 	}
 
 	private static String[] _DEFAULT_ORDER = {
