@@ -15,6 +15,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import com.ixenit.membersort.Activator;
 import com.ixenit.membersort.preferences.PreferenceConstants;
+import com.ixenit.membersort.preferences.converter.OrderConverter;
 
 /**
  *
@@ -28,7 +29,7 @@ class MemberComparator implements Comparator<BodyDeclaration> {
 		IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
 
 		String savedOrder = preferenceStore.getString(PreferenceConstants.P_ORDER);
-		String[] order = savedOrder.split(",");
+		String[] order = OrderConverter.convert(savedOrder);
 
 		boolean orderByName = preferenceStore.getBoolean(PreferenceConstants.P_ORDER_BY_NAME);
 

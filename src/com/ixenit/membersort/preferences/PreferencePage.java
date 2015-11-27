@@ -7,6 +7,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.ixenit.membersort.Activator;
+import com.ixenit.membersort.preferences.converter.OrderConverter;
 import com.ixenit.membersort.preferences.editor.ListEditor;
 
 /**
@@ -30,28 +31,19 @@ public class PreferencePage extends FieldEditorPreferencePage implements IWorkbe
 	public void createFieldEditors() {
 		Composite parent = getFieldEditorParent();
 
-		addField(new BooleanFieldEditor(PreferenceConstants.P_ORDER_BY_NAME, "Sort by name", parent));
+		addField(
+			new BooleanFieldEditor(PreferenceConstants.P_ORDER_BY_NAME, "Sort by name", parent));
 
 		addField(new ListEditor(PreferenceConstants.P_ORDER, "Order of members", parent) {
 
 			@Override
 			protected String createList(String[] items) {
-				StringBuilder sb = new StringBuilder();
-
-				for (String item : items) {
-					sb.append(PreferenceConstants.SEPARATOR);
-					sb.append(item);
-
-				}
-
-				sb.deleteCharAt(0);
-
-				return sb.toString();
+				return OrderConverter.convert(items);
 			}
 
 			@Override
 			protected String[] parseString(String stringList) {
-				return stringList.split(PreferenceConstants.SEPARATOR);
+				return OrderConverter.convert(stringList);
 			}
 
 		});
