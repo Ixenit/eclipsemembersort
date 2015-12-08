@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2015 Ixenit
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
 package com.ixenit.membersort.preferences.editor;
 
 import org.eclipse.core.runtime.Assert;
@@ -22,21 +37,9 @@ import org.eclipse.swt.widgets.Widget;
 import com.ixenit.membersort.preferences.dialog.ModifierDialog;
 
 /**
- * An abstract field editor that manages a list of input values.
- * The editor displays a list containing the values, buttons for
- * adding and removing values, and Up and Down buttons to adjust
- * the order of elements in the list.
- * <p>
- * Subclasses must implement the <code>parseString</code>,
- * <code>createList</code>, and <code>getNewInputObject</code>
- * framework methods.
- * </p>
- *
- * From:
- * https://www.google.hu/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=eclipse+fieldeditor+
- * org.eclipse.swt.widgets.List
  *
  * @author Benjámin Hajnal <benjamin.hajnal@ixenit.com>
+ *
  */
 public abstract class ListEditor extends FieldEditor {
 
@@ -44,27 +47,27 @@ public abstract class ListEditor extends FieldEditor {
 	 * Creates a selection listener.
 	 */
 	public void createSelectionListener() {
-		selectionListener = new SelectionAdapter() {
+		_selectionListener = new SelectionAdapter() {
 
 			@Override
 			public void widgetSelected(SelectionEvent event) {
 				Widget widget = event.widget;
-				if (widget == addButton) {
-					addPressed();
+				if (widget == _addButton) {
+					_addPressed();
 				}
-				else if (widget == removeButton) {
-					removePressed();
+				else if (widget == _removeButton) {
+					_removePressed();
 				}
-				else if (widget == modifyButton) {
-					modifyPressed();
+				else if (widget == _modifyButton) {
+					_modifyPressed();
 				}
-				else if (widget == upButton) {
-					upPressed();
+				else if (widget == _upButton) {
+					_upPressed();
 				}
-				else if (widget == downButton) {
-					downPressed();
+				else if (widget == _downButton) {
+					_downPressed();
 				}
-				else if (widget == list) {
+				else if (widget == _list) {
 					selectionChanged();
 				}
 			}
@@ -80,31 +83,31 @@ public abstract class ListEditor extends FieldEditor {
 	 * @return the button box
 	 */
 	public Composite getButtonBoxControl(Composite parent) {
-		if (buttonBox == null) {
-			buttonBox = new Composite(parent, SWT.NULL);
+		if (_buttonBox == null) {
+			_buttonBox = new Composite(parent, SWT.NULL);
 			GridLayout layout = new GridLayout();
 			layout.marginWidth = 0;
-			buttonBox.setLayout(layout);
-			createButtons(buttonBox);
-			buttonBox.addDisposeListener(new DisposeListener() {
+			_buttonBox.setLayout(layout);
+			_createButtons(_buttonBox);
+			_buttonBox.addDisposeListener(new DisposeListener() {
 
 				@Override
 				public void widgetDisposed(DisposeEvent paramDisposeEvent) {
-					addButton = null;
-					removeButton = null;
-					modifyButton = null;
-					upButton = null;
-					downButton = null;
-					buttonBox = null;
+					_addButton = null;
+					_removeButton = null;
+					_modifyButton = null;
+					_upButton = null;
+					_downButton = null;
+					_buttonBox = null;
 				}
 			});
 		}
 		else {
-			checkParent(buttonBox, parent);
+			checkParent(_buttonBox, parent);
 		}
 
 		selectionChanged();
-		return buttonBox;
+		return _buttonBox;
 	}
 
 	/**
@@ -115,22 +118,22 @@ public abstract class ListEditor extends FieldEditor {
 	 * @return the list control
 	 */
 	public List getListControl(Composite parent) {
-		if (list == null) {
-			list = new List(parent, SWT.NONE | SWT.SINGLE);
-			list.setFont(parent.getFont());
-			list.addSelectionListener(getSelectionListener());
-			list.addDisposeListener(new DisposeListener() {
+		if (_list == null) {
+			_list = new List(parent, SWT.NONE | SWT.SINGLE);
+			_list.setFont(parent.getFont());
+			_list.addSelectionListener(_getSelectionListener());
+			_list.addDisposeListener(new DisposeListener() {
 
 				@Override
 				public void widgetDisposed(DisposeEvent paramDisposeEvent) {
-					list = null;
+					_list = null;
 				}
 			});
 		}
 		else {
-			checkParent(list, parent);
+			checkParent(_list, parent);
 		}
-		return list;
+		return _list;
 	}
 
 	@Override
@@ -145,17 +148,17 @@ public abstract class ListEditor extends FieldEditor {
 	public void setEnabled(boolean enabled, Composite parent) {
 		super.setEnabled(enabled, parent);
 		getListControl(parent).setEnabled(enabled);
-		addButton.setEnabled(enabled);
-		removeButton.setEnabled(enabled);
-		modifyButton.setEnabled(enabled);
-		upButton.setEnabled(enabled);
-		downButton.setEnabled(enabled);
+		_addButton.setEnabled(enabled);
+		_removeButton.setEnabled(enabled);
+		_modifyButton.setEnabled(enabled);
+		_upButton.setEnabled(enabled);
+		_downButton.setEnabled(enabled);
 	}
 
 	@Override
 	public void setFocus() {
-		if (list != null) {
-			list.setFocus();
+		if (_list != null) {
+			_list.setFocus();
 		}
 	}
 
@@ -206,7 +209,7 @@ public abstract class ListEditor extends FieldEditor {
 	protected void adjustForNumColumns(int numColumns) {
 		Control control = getLabelControl();
 		((GridData)control.getLayoutData()).horizontalSpan = numColumns;
-		((GridData)list.getLayoutData()).horizontalSpan = numColumns - 1;
+		((GridData)_list.getLayoutData()).horizontalSpan = numColumns - 1;
 	}
 
 	@Override
@@ -216,45 +219,45 @@ public abstract class ListEditor extends FieldEditor {
 		gd.horizontalSpan = numColumns;
 		control.setLayoutData(gd);
 
-		list = getListControl(parent);
+		_list = getListControl(parent);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.verticalAlignment = GridData.FILL;
 		gd.horizontalSpan = numColumns - 1;
 		gd.grabExcessHorizontalSpace = true;
-		list.setLayoutData(gd);
+		_list.setLayoutData(gd);
 
-		buttonBox = getButtonBoxControl(parent);
+		_buttonBox = getButtonBoxControl(parent);
 		gd = new GridData();
 		gd.verticalAlignment = GridData.BEGINNING;
-		buttonBox.setLayoutData(gd);
+		_buttonBox.setLayoutData(gd);
 	}
 
 	@Override
 	protected void doLoad() {
-		if (list != null) {
+		if (_list != null) {
 			String s = getPreferenceStore().getString(getPreferenceName());
 			String[] array = parseString(s);
 			for (int i = 0; i < array.length; i++) {
-				list.add(array[i]);
+				_list.add(array[i]);
 			}
 		}
 	}
 
 	@Override
 	protected void doLoadDefault() {
-		if (list != null) {
-			list.removeAll();
+		if (_list != null) {
+			_list.removeAll();
 			String s = getPreferenceStore().getDefaultString(getPreferenceName());
 			String[] array = parseString(s);
 			for (int i = 0; i < array.length; i++) {
-				list.add(array[i]);
+				_list.add(array[i]);
 			}
 		}
 	}
 
 	@Override
 	protected void doStore() {
-		String s = createList(list.getItems());
+		String s = createList(_list.getItems());
 		if (s != null) {
 			getPreferenceStore().setValue(getPreferenceName(), s);
 		}
@@ -267,7 +270,7 @@ public abstract class ListEditor extends FieldEditor {
 	 * @since 3.5
 	 */
 	protected List getList() {
-		return list;
+		return _list;
 	}
 
 	/**
@@ -280,10 +283,10 @@ public abstract class ListEditor extends FieldEditor {
 	 * @return the shell
 	 */
 	protected Shell getShell() {
-		if (addButton == null) {
+		if (_addButton == null) {
 			return null;
 		}
-		return addButton.getShell();
+		return _addButton.getShell();
 	}
 
 	/**
@@ -302,13 +305,13 @@ public abstract class ListEditor extends FieldEditor {
 	 * @since 3.5
 	 */
 	protected void selectionChanged() {
-		int index = list.getSelectionIndex();
-		int size = list.getItemCount();
+		int index = _list.getSelectionIndex();
+		int size = _list.getItemCount();
 
-		removeButton.setEnabled(index >= 0);
-		modifyButton.setEnabled(index >= 0);
-		upButton.setEnabled(size > 1 && index > 0);
-		downButton.setEnabled(size > 1 && index >= 0 && index < size - 1);
+		_removeButton.setEnabled(index >= 0);
+		_modifyButton.setEnabled(index >= 0);
+		_upButton.setEnabled(size > 1 && index > 0);
+		_downButton.setEnabled(size > 1 && index >= 0 && index < size - 1);
 	}
 
 	/**
@@ -316,19 +319,19 @@ public abstract class ListEditor extends FieldEditor {
 	 *
 	 * @param event
 	 */
-	private void addPressed() {
+	private void _addPressed() {
 		ModifierDialog modifierDialog = new ModifierDialog(getShell(), null);
 		modifierDialog.open();
 
 		String input = modifierDialog.getResult();
 
 		if (input != null) {
-			int index = list.getSelectionIndex();
+			int index = _list.getSelectionIndex();
 			if (index >= 0) {
-				list.add(input, index + 1);
+				_list.add(input, index + 1);
 			}
 			else {
-				list.add(input, 0);
+				_list.add(input, 0);
 			}
 			selectionChanged();
 		}
@@ -340,12 +343,12 @@ public abstract class ListEditor extends FieldEditor {
 	 * @param box
 	 *        the box for the buttons
 	 */
-	private void createButtons(Composite box) {
-		addButton = createPushButton(box, "ListEditor.add");
-		removeButton = createPushButton(box, "ListEditor.remove");
-		modifyButton = createPushButton(box, "Edit");
-		upButton = createPushButton(box, "ListEditor.up");
-		downButton = createPushButton(box, "ListEditor.down");
+	private void _createButtons(Composite box) {
+		_addButton = _createPushButton(box, "ListEditor.add");
+		_removeButton = _createPushButton(box, "ListEditor.remove");
+		_modifyButton = _createPushButton(box, "Edit");
+		_upButton = _createPushButton(box, "ListEditor.up");
+		_downButton = _createPushButton(box, "ListEditor.down");
 	}
 
 	/**
@@ -357,7 +360,7 @@ public abstract class ListEditor extends FieldEditor {
 	 *        the resource name used to supply the button's label text
 	 * @return Button
 	 */
-	private Button createPushButton(Composite parent, String key) {
+	private Button _createPushButton(Composite parent, String key) {
 		Button button = new Button(parent, SWT.PUSH);
 		button.setText(JFaceResources.getString(key));
 		button.setFont(parent.getFont());
@@ -365,15 +368,15 @@ public abstract class ListEditor extends FieldEditor {
 		int widthHint = convertHorizontalDLUsToPixels(button, IDialogConstants.BUTTON_WIDTH);
 		data.widthHint = Math.max(widthHint, button.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).x);
 		button.setLayoutData(data);
-		button.addSelectionListener(getSelectionListener());
+		button.addSelectionListener(_getSelectionListener());
 		return button;
 	}
 
 	/**
 	 * Notifies that the Down button has been pressed.
 	 */
-	private void downPressed() {
-		swap(false);
+	private void _downPressed() {
+		_swap(false);
 	}
 
 	/**
@@ -382,17 +385,17 @@ public abstract class ListEditor extends FieldEditor {
 	 *
 	 * @return the selection listener
 	 */
-	private SelectionListener getSelectionListener() {
-		if (selectionListener == null) {
+	private SelectionListener _getSelectionListener() {
+		if (_selectionListener == null) {
 			createSelectionListener();
 		}
-		return selectionListener;
+		return _selectionListener;
 	}
 
-	private void modifyPressed() {
+	private void _modifyPressed() {
 		setPresentsDefaultValue(false);
 
-		String[] selection = list.getSelection();
+		String[] selection = _list.getSelection();
 
 		if (selection == null || selection.length == 0) {
 			return;
@@ -407,23 +410,23 @@ public abstract class ListEditor extends FieldEditor {
 			return;
 		}
 
-		int index = list.getSelectionIndex();
-		list.remove(index);
-		list.add(input, index);
+		int index = _list.getSelectionIndex();
+		_list.remove(index);
+		_list.add(input, index);
 
-		list.setSelection(index);
+		_list.setSelection(index);
 		selectionChanged();
 	}
 
 	/**
 	 * Notifies that the Remove button has been pressed.
 	 */
-	private void removePressed() {
+	private void _removePressed() {
 		setPresentsDefaultValue(false);
-		int index = list.getSelectionIndex();
+		int index = _list.getSelectionIndex();
 		if (index >= 0) {
-			list.remove(index);
-			list.select(index >= list.getItemCount() ? index - 1 : index);
+			_list.remove(index);
+			_list.select(index >= _list.getItemCount() ? index - 1 : index);
 			selectionChanged();
 		}
 	}
@@ -435,17 +438,17 @@ public abstract class ListEditor extends FieldEditor {
 	 *        <code>true</code> if the item should move up,
 	 *        and <code>false</code> if it should move down
 	 */
-	private void swap(boolean up) {
+	private void _swap(boolean up) {
 		setPresentsDefaultValue(false);
-		int index = list.getSelectionIndex();
+		int index = _list.getSelectionIndex();
 		int target = up ? index - 1 : index + 1;
 
 		if (index >= 0) {
-			String[] selection = list.getSelection();
+			String[] selection = _list.getSelection();
 			Assert.isTrue(selection.length == 1);
-			list.remove(index);
-			list.add(selection[0], target);
-			list.setSelection(target);
+			_list.remove(index);
+			_list.add(selection[0], target);
+			_list.setSelection(target);
 		}
 		selectionChanged();
 	}
@@ -453,49 +456,49 @@ public abstract class ListEditor extends FieldEditor {
 	/**
 	 * Notifies that the Up button has been pressed.
 	 */
-	private void upPressed() {
-		swap(true);
+	private void _upPressed() {
+		_swap(true);
 	}
 
 	/**
 	 * The Add button.
 	 */
-	private Button addButton;
+	private Button _addButton;
 
 	/**
 	 * The button box containing the Add, Remove, Up, and Down buttons;
 	 * <code>null</code> if none (before creation or after disposal).
 	 */
-	private Composite buttonBox;
+	private Composite _buttonBox;
 
 	/**
 	 * The Down button.
 	 */
-	private Button downButton;
+	private Button _downButton;
 
 	/**
 	 * The list widget; <code>null</code> if none
 	 * (before creation or after disposal).
 	 */
-	private List list;
+	private List _list;
 
 	/**
 	 * The Modify button.
 	 */
-	private Button modifyButton;
+	private Button _modifyButton;
 
 	/**
 	 * The Remove button.
 	 */
-	private Button removeButton;
+	private Button _removeButton;
 
 	/**
 	 * The selection listener.
 	 */
-	private SelectionListener selectionListener;
+	private SelectionListener _selectionListener;
 
 	/**
 	 * The Up button.
 	 */
-	private Button upButton;
+	private Button _upButton;
 }
