@@ -26,7 +26,7 @@
       <menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
-               id="MemberSort.toolbars.toolbar">
+               id="MemberSort.toolbars.MemberSort" >
             <command
                   commandId="MemberSort.commands.sortCommand"
                   icon="icons/arrow.png"
@@ -34,6 +34,18 @@
                   id="MemberSort.toolbars.sortCommand">
             </command>
          </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="edit" >
+            <command
+                  commandId="MemberSort.commands.sortCommand"
+                  label="Sort members"
+                  style="push"
+                  tooltip="Sort members">
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension
