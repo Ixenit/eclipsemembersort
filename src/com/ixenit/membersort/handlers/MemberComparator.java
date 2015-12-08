@@ -53,7 +53,7 @@ class MemberComparator implements Comparator<BodyDeclaration> {
 			return false;
 		}
 
-		sb.append("_").append(modifier);
+		sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append(modifier);
 
 		return true;
 	}
@@ -109,7 +109,7 @@ class MemberComparator implements Comparator<BodyDeclaration> {
 	private Member _getClassType(TypeDeclaration declaration, StringBuilder sb) {
 		String name = declaration.getName().getIdentifier();
 
-		sb.append("_class");
+		sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append("class");
 
 		return new Member(name, sb.toString());
 	}
@@ -117,7 +117,7 @@ class MemberComparator implements Comparator<BodyDeclaration> {
 	private Member _getEnumType(EnumDeclaration declaration, StringBuilder sb) {
 		String name = declaration.getName().getIdentifier();
 
-		sb.append("_enum");
+		sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append("enum");
 
 		return new Member(name, sb.toString());
 	}
@@ -125,25 +125,25 @@ class MemberComparator implements Comparator<BodyDeclaration> {
 	private Member _getFieldType(FieldDeclaration declaration, StringBuilder sb) {
 		String name = _readFieldName(declaration);
 
-		sb.append("_variable");
+		sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append("variable");
 
 		return new Member(name, sb.toString());
 	}
 
 	private Member _getInitializerType(Initializer declaration, StringBuilder sb) {
-		sb.append("_init");
+		sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append("init");
 
-		return new Member("", sb.toString().replace("package_", ""));
+		return new Member("", sb.toString().replace("package ", ""));
 	}
 
 	private Member _getMethodType(MethodDeclaration declaration, StringBuilder sb) {
 		String name = declaration.getName().getIdentifier();
 
 		if (declaration.isConstructor()) {
-			sb.append("_constructor");
+			sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append("constructor");
 		}
 		else {
-			sb.append("_method");
+			sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append("method");
 		}
 
 		return new Member(name, sb.toString());
@@ -159,7 +159,7 @@ class MemberComparator implements Comparator<BodyDeclaration> {
 		if (!_appendIfExist(sb, "public", modifiers) && !_appendIfExist(sb, "protected", modifiers)
 			&& !_appendIfExist(sb, "private", modifiers)) {
 
-			sb.append("_package");
+			sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append("package");
 		}
 
 		sb.deleteCharAt(0);

@@ -20,4 +20,6 @@ public class PreferenceConstants {
 
 	public static final String[] VISIBILITIES = { "public", "private", "protected", "package" };
 
+	public static final String VISIBLE_SEPARATOR = " ";
+
 }

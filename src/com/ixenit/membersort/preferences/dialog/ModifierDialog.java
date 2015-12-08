@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
+import com.ixenit.membersort.preferences.PreferenceConstants;
+
 /**
  *
  * @author Benjámin Hajnal <benjamin.hajnal@ixenit.com>
@@ -88,10 +90,10 @@ public class ModifierDialog extends TitleAreaDialog {
 		sb.append(_visibility);
 
 		for (String m : _modifiers) {
-			sb.append("_").append(m);
+			sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append(m);
 		}
 
-		sb.append("_").append(_type);
+		sb.append(PreferenceConstants.VISIBLE_SEPARATOR).append(_type);
 
 		_result = sb.toString();
 	}
@@ -201,7 +203,7 @@ public class ModifierDialog extends TitleAreaDialog {
 			return;
 		}
 
-		String[] state = lastState.split("_");
+		String[] state = lastState.split(PreferenceConstants.VISIBLE_SEPARATOR);
 
 		_visibility = state[0];
 

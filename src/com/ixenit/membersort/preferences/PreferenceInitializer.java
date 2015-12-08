@@ -38,36 +38,36 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	private static String[] _DEFAULT_ORDER = {
 
 			// PUBLIC
-			"public_static_final_variable", "public_static_variable",
+			"public static final variable", "public static variable",
 
-			"public_static_method", "public_constructor", "public_method",
+			"public static method", "public constructor", "public method",
 
 			// PACKAGE
-			"package_static_method", "package_constructor", "package_method",
+			"package static method", "package constructor", "package method",
 
-			"package_static_final_variable", "package_static_variable", "package_variable", "package_final_variable",
+			"package static final variable", "package static variable", "package variable", "package final variable",
 
 			// PROTECTED
-			"protected_static_method", "protected_constructor", "protected_method",
+			"protected static method", "protected constructor", "protected method",
 
-			"protected_static_final_variable", "protected_static_variable", "protected_variable", "protected_final_variable",
+			"protected static final variable", "protected static variable", "protected variable", "protected final variable",
 
 			// PRIVATE
-			"private_static_method", "private_constructor", "private_method",
+			"private static method", "private constructor", "private method",
 
-			"public_variable", "public_final_variable",
+			"public variable", "public final variable",
 
-			// "private_static_final_log", "private_static_final_instance",
+			// "private static final log", "private static final instance",
 
-			"private_static_final_variable", "private_static_variable", "private_variable", "private_final_variable",
+			"private static final variable", "private static variable", "private variable", "private final variable",
 
-			"static_init",
+			"static init",
 
 			// CLASSES
 
-			"public_static_class", "public_class", "protected_static_class", "protected_class", "private_static_class", "private_class",
+			"public static class", "public class", "protected static class", "protected class", "private static class", "private class",
 
 			// ENUMS
-			"public_enum", "package_enum", "protected_enum", "private_enum" };
+			"public enum", "package enum", "protected enum", "private enum" };
 
 }
