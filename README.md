@@ -4,7 +4,7 @@ MemberSort is an Eclipse plugin helping developers format their JAVA code's memb
 
 ## Installation
 
-Install the plugin from the eclipse marketplace... (after publishing it will be avaible)
+Install the plugin from the [eclipse marketplace](https://marketplace.eclipse.org/content/membersort) or drag the <a href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=2668586" class="drag" title="Drag to your running Eclipse workspace to install MemberSort"><img class="img-responsive" src="https://marketplace.eclipse.org/sites/all/themes/solstice/_themes/solstice_marketplace/public/images/btn-install.png" alt="Drag to your running Eclipse workspace to install MemberSort" /></a> button to your Eclipse instance.
 
 ## Usage
 
